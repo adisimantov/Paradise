@@ -1,0 +1,83 @@
+<md-dialog flex="80%">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon icon="clear"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout-padding ng-disabled="action == 'details'">
+        <div>
+            <form name="authorForm">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>First name</label>
+                        <input required md-no-asterisk ng-disabled="action == 'details'" ng-model="author.firstName">
+                        <div ng-messages="authorForm.description.$error">
+                            <div ng-message="required">You <b>must</b> add first name.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Last Name</label>
+                        <input required md-no-asterisk name="lastName" ng-disabled="action == 'details'" ng-model="author.lastName">
+                        <div ng-messages="authorForm.lastName.$error">
+                            <div ng-message="required">You <b>must</b> add last name.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" layout-xs ng-show="action == 'details'">
+                        <label>Country</label>
+                        <input ng-disabled="action == 'details'" ng-model="author.country">
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-xs ng-show="action !== 'details'">
+                        <label>Country</label>
+                        <md-autocomplete required
+                                md-no-cache="false"
+                                md-selected-item="author.country"
+                                md-search-text="searchText"
+                                md-items="country in querySearch(searchText)"
+                                md-item-text="country.name"
+                                md-min-length="0"
+                                placeholder="Counrty">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{country.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No country matching "{{searchText}}" were found.
+                            </md-not-found>
+                            <div ng-messages="authorForm.autocompleteField.$error" ng-if="authorForm.autocompleteField.$touched">
+                                <div ng-message="required">You <b>must</b> add country.</div>
+                            </div>
+                        </md-autocomplete>
+                        </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Address</label>
+                        <input ng-disabled="action == 'details'" ng-model="author.address">
+                    </md-input-container>
+
+                </div>
+            </form>
+        </div>
+        <div ng-hide="action !== 'details' || !author.address" layout="row" layout-align="center center">
+            <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                <ui-gmap-marker coords="marker.coords" idkey="marker.id">
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
+        </div>
+    </md-content>
+    <div class="md-actions" ng-hide="action == 'details'" layout="row">
+        <span flex></span>
+        <div ng-if="errorMsg">
+            <b layout-align="left center" class="md-padding">
+                error:{{errorMsg}}
+            </b>
+        </div>
+        <md-button ng-click="cancel()"> Cancel</md-button>
+        <md-button ng-click="manipulateAuthor(author)"
+                   ng-disabled="!(author.firstName && author.lastName && author.country)"
+                   class="md-primary"> Save</md-button>
+    </div>
+</md-dialog>

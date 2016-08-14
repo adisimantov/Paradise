@@ -1,0 +1,36 @@
+<md-dialog flex="70%" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Details</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon icon="clear"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div layout-align="center center">
+        <div layout="row">
+            <div layout-align="center center">
+                <img class="book-picture" src="../public/content/No_Image_Available.png"/>
+            </div>
+            <div class="details-div" layout="column">
+                <h4 class="book-title">{{book.title}}</h4>
+                <h5 ng-show="book.series" class="book-series">{{'(' + book.series + (((book.bookNumber) ? ' #' + book.bookNumber : ""))+
+                    ")"}}</h5>
+                <h6 class="sub-title">{{'by ' + book.author.firstName + ' ' + book.author.lastName}}</h6>
+            </div>
+        </div>
+    </div>
+    <div class="details-class" layout="column" layout-align="center center">
+        <div class="book-summery">
+            {{book.summery}}
+        </div>
+    </div>
+    <div>
+        <div layout-padding class="book-publish-data" ng-show="book.publisher || book.publicationYear">
+            {{"published" + (book.publisher ? " by " + book.publisher: " ") +
+            (book.publicationYear? " at " + book.publicationYear: "")}}
+            <p class="book-category">{{book.genere}}</p>
+        </div>
+    </div>
+</md-dialog>

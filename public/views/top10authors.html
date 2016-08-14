@@ -1,0 +1,12 @@
+<md-card>
+    <md-card-content>
+        <h2>TOP 10 AUTHORS!</h2>
+        <md-divider></md-divider>
+        <md-list ng-cloak>
+            <md-list-item aria-hidden="false" class="noright" ng-repeat="author in authors">
+                <p>{{ author._id.firstName }}&nbsp;{{author._id.lastName}}</p>
+                {{author.totalViews}} views
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

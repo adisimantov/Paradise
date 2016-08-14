@@ -1,0 +1,15 @@
+<md-card>
+    <md-card-content>
+        <h2>{{title}}</h2>
+        <md-divider></md-divider>
+        <md-list ng-cloak class="bookList">
+            <md-list-item aria-hidden="false" class="noright" ng-repeat="book in books">
+                <p><b>{{ book.title }}</b>/{{book.author.firstName}} {{book.author.lastName}}</p>
+                <text class="md-secondary" ng-show="top10">{{book.totalViews ? book.totalViews : 0}} Views</text>
+                <ng-md-icon ng-if="!top10" icon="details" ng-click="details($event, book)" class="md-secondary"></ng-md-icon>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>
+
+

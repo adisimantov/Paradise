@@ -1,0 +1,88 @@
+<md-dialog flex="80%">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon icon="clear"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <div>
+            <form name="bookForm">
+                <div layout="row">
+                    <md-input-container flex="14">
+                        <label>ISBN</label>
+                        <input required ng-disabled="action == 'details'" ng-model="book.ISBN">
+                        <div ng-messages="bookForm.description.$error">
+                            <div ng-message="required">You <b>must</b> add ISBN.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm>
+                        <label>Title</label> <input required ng-disabled="action == 'details'" ng-model="book.title">
+                        <div ng-messages="bookForm.description.$error">
+                            <div ng-message="required">You <b>must</b> add title.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex-gt-sm  ng-show="action == 'details'">
+                        <label>Author</label>
+                        <input ng-disabled="action == 'details'" ng-model="book.author.firstName">
+                    </md-input-container>
+                    <md-input-container flex-gt-sm ng-show="action !== 'details'">
+                        <label>Author</label>
+                        <md-autocomplete required
+                                md-no-cache="false"
+                                md-selected-item="book.author"
+                                md-search-text="searchText"
+                                md-items="author in querySearch(searchText)"
+                                md-item-text="author.firstName"
+                                md-min-length="0">
+                            <md-item-template>
+                                <span md-highlight-text="searchText"
+                                      md-highlight-flags="^i">{{author.firstName}} {{author.lastName}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No author matching "{{searchText}}" were found.
+                                <a ng-click="goToAuthors()">Go to authors anf create a new one!</a>
+                            </md-not-found>
+                            <div ng-messages="bookForm.autocompleteField.$error" ng-if="bookForm.autocompleteField.$touched">
+                                <div ng-message="required">You <b>must</b> add author.</div>
+                            </div>
+                        </md-autocomplete>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex-gt-sm>
+                        <label>Series</label> <input ng-disabled="action == 'details'" ng-model="book.series">
+                    </md-input-container>
+                    <md-input-container flex="10">
+                        <label>Number</label> <input ng-disabled="action == 'details'" ng-model="book.bookNumber">
+                    </md-input-container>
+                    <md-input-container flex-gt-sm>
+                        <label>Publisher</label> <input ng-disabled="action == 'details'" ng-model="book.publisher">
+                    </md-input-container>
+                    <md-input-container flex="20">
+                        <label>Year</label> <input ng-disabled="action == 'details'" ng-model="book.publicationYear">
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Summery</label>
+                    <textarea ng-model="book.summery" ng-disabled="action == 'details'" rows="3" md-select-on-focus></textarea>
+                </md-input-container>
+            </form>
+        </div>
+    </md-content>
+    <div class="md-actions" ng-hide="action == 'details'" layout="row">
+        <span flex></span>
+        <div ng-if="errorMsg">
+            <b layout-align="left center" class="md-padding">
+                error:{{errorMsg}}
+            </b>
+        </div>
+        <md-button ng-click="cancel()"> Cancel</md-button>
+        <md-button ng-click="manipulateBook(book)" class="md-primary"
+                   ng-disabled="!(book.ISBN && book.author && book.title)">
+            Save</md-button>
+    </div>
+</md-dialog>

@@ -1,0 +1,39 @@
+<div class="authors"  ng-cloak>
+    <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+
+
+    <md-card>
+        <md-card-content>
+            <div layout-padding layout-wrap layout="row">
+                <h2>Authors</h2>
+                <md-input-container class="md-block" flex>
+                    <label>First Name</label>
+                    <input ng-model="authorSearch.firstName">
+                </md-input-container>
+                <md-input-container class="md-block" flex>
+                    <label>Last Name</label>
+                    <input ng-model="authorSearch.lastName">
+                </md-input-container>
+                <md-input-container class="md-block" flex>
+                    <label>Country</label>
+                    <input ng-model="authorSearch.country">
+                </md-input-container>
+                <md-button ng-click="searchAuthor(authorSearch)">Search</md-button>
+            </div>
+            <md-divider></md-divider>
+            <md-list ng-cloak class="authorList">
+                <md-list-item aria-hidden="false" class="noright" ng-repeat="author in authors">
+                    <p>{{ author.firstName }}&nbsp;{{author.lastName}}</p>
+                    <ng-md-icon icon="details" ng-click="details($event,author)"
+                                class="md-secondary md-hue-3"></ng-md-icon>
+                    <ng-md-icon icon="edit" ng-click="editAuthor($event,author)" class="md-secondary md-hue-3"></ng-md-icon>
+                    <ng-md-icon icon="delete" ng-click="deleteAuthor($event,author)" class="md-secondary"></ng-md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+    </md-card>
+
+</div>
+

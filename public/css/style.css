@@ -1,0 +1,60 @@
+.md-button.md-fab.md-fab-bottom-right {
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    position: fixed !important;
+}
+
+.angular-google-map-container {
+    height: 150px;
+    width: 500px;
+}
+
+/*Font*/
+@font-face {
+    font-family: myAwesomeFont;
+    src: url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/fonts/fontawesome-webfont.woff);
+}
+
+h5, h4{
+    display:inline;
+}
+div.details-div{
+    margin-left:5px;
+    margin-top:10px;
+    display:inline-block;
+}
+
+.book-picture{
+    max-width: 70px;
+    max-height: 140px;
+}
+
+h6.sub-title{
+    padding-left: 2em;
+}
+
+.book-summery{
+    margin-top:20px;
+    margin-bottom:20px;
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    background: #dddddd;
+    width: 900px;
+    border-radius: 25px;
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+    font-family: myAwesomeFont;
+    transition: background-color 1s ease;
+}
+
+.book-summery:hover{
+    background: #4cff00;
+}
+
+.book-title{
+    text-shadow: 1px 1px #a1a1a1;
+}
+

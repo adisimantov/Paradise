@@ -1,0 +1,52 @@
+<div class="books" ng-cloak>
+    <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+
+    <md-card>
+        <md-card-content>
+            <div layout-padding layout="row">
+                <h2>Books</h2>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Title</label>
+                    <input ng-model="bookSearch.title">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Author</label>
+                    <md-autocomplete
+                            md-no-cache="false"
+                            md-selected-item="bookSearch.author"
+                            md-search-text="searchText"
+                            md-items="author in querySearch(searchText)"
+                            md-item-text="author.firstName"
+                            md-min-length="0">
+                        <md-item-template>
+                                <span md-highlight-text="searchText"
+                                      md-highlight-flags="^i">{{author.firstName}} {{author.lastName}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No author matching "{{searchText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Series</label>
+                    <input ng-model="bookSearch.series">
+                </md-input-container>
+                <md-button ng-click="searchBook(bookSearch)">Search</md-button>
+            </div>
+
+            <md-divider></md-divider>
+            <md-list ng-cloak class="bookList">
+                <md-list-item aria-hidden="false" class="noright" ng-repeat="book in books">
+                    <p><b>{{ book.title }}</b>/{{book.author.firstName}} {{book.author.lastName}}</p>
+                    <ng-md-icon icon="details" ng-click="details($event,book)"
+                                class="md-secondary md-hue-3"></ng-md-icon>
+                    <ng-md-icon icon="edit" ng-click="editBook($event,book)" class="md-secondary md-hue-3"></ng-md-icon>
+                    <ng-md-icon icon="delete" ng-click="deleteBook($event,book)" class="md-secondary"></ng-md-icon>
+                </md-list-item>
+            </md-list>
+        </md-card-content>
+    </md-card>
+</div>
+
